@@ -1,0 +1,10 @@
+body {
+  background-color: #ececdd;
+  /* overflow: hidden; */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  margin: 0 0 0 0;
+}
+body::-webkit-scrollbar {
+  display: none;
+}

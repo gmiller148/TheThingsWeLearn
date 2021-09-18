@@ -6,6 +6,7 @@ import Content from "./Content";
 const useStyles = makeStyles((theme) => ({
   root: {
     background: "#ECECDD",
+    overflowY: "scroll",
   },
 }));
 

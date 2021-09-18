@@ -42,7 +42,7 @@ const Header = () => {
   }, []);
   return (
     <div className={classes.root} id="header">
-      <Fade in={checked} timeout={4000}>
+      <Fade in={checked} timeout={3000}>
         <div className={classes.container}>
           <div className={classes.title}>The Things We Learn</div>
           <div className={classes.subtitle}>the human condition project</div>
