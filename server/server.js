@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 const passport = require("passport");
+require("./passportLocal");
 
 const app = express();
 
@@ -26,5 +27,5 @@ app.use((error, req, res, next) => {
 });
 
 app.get("/test", (req, res) => res.json({ hello: "feasdf" }));
-
+app.use("/api", require("./routes"));
 module.exports = app;
