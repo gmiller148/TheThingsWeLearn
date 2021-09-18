@@ -34,26 +34,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "3rem",
   },
 }));
-const Header = () => {
+export default function Content() {
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
   useEffect(() => {
     setChecked(true);
   }, []);
   return (
-    <div className={classes.root} id="header">
-      <Fade in={checked} timeout={4000}>
-        <div className={classes.container}>
-          <div className={classes.title}>The Things We Learn</div>
-          <div className={classes.subtitle}>the human condition project</div>
-          <Scroll to="content" smooth={true}>
-            <IconButton>
-              <ExpandMoreIcon className={classes.goDown} />
-            </IconButton>
-          </Scroll>
-        </div>
-      </Fade>
+    <div className={classes.root} id="content">
+      content
     </div>
   );
-};
-export default Header;
+}
