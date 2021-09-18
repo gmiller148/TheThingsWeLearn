@@ -28,4 +28,10 @@ app.use((error, req, res, next) => {
 
 app.get("/test", (req, res) => res.json({ hello: "feasdf" }));
 app.use("/api", require("./routes"));
+app.use(express.static("client/build"));
+
+const path = require("path");
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("client", "build", "index.html"));
+});
 module.exports = app;
