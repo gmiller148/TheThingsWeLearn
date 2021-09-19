@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GalleryPage = () => {
+const GalleryPage = (props) => {
   const [bios, setBios] = useState([]);
   useEffect(() => {
     fetch(`/api/bios`)
