@@ -65,6 +65,35 @@ router.post(
     }
   })
 );
+
+router.post(
+  "/create-bio",
+  ash(async (req, res) => {
+    console.log(req);
+    const { name, birthYear, deathYear, learned } = req.body;
+    const user = new User({
+      name: name,
+      birthYear: birthYear,
+      deathYear: deathYear,
+      learned: learned,
+      reference: null,
+      referenceArtist: null,
+      alive: false,
+    });
+    await user.save();
+    return res.sendStatus(201);
+  })
+);
+
+router.get(
+  "/bios",
+  ash(async (req, res) => {
+    const bios = await User.find({ alive: false }).lean();
+    console.log(bios);
+    return res.json({ bios });
+  })
+);
+
 router.post("/login", passport.authenticate("local"), (req, res) => {
   return res.sendStatus(200);
 });

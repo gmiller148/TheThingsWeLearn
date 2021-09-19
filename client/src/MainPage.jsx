@@ -11,21 +11,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainPage = () => {
-  const [text, setText] = useState("blank");
+  const [bios, setBios] = useState([]);
   useEffect(() => {
-    fetch(`/test`)
+    fetch(`/api/bios`)
       .then((res) => res.json())
       .then((response) => {
-        const { hello } = response;
-        setText(hello);
+        console.log({ response });
+        setBios(response.bios);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   const classes = useStyles();
   return (
     <div className={classes.root}>
       <Header />
-      <Content />
+      <Content bios={bios} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import Sidebar from "./Sidebar";
 const useStyles = makeStyles((theme) => ({
   root: {
     position: "sticky",
+    zIndex: 1000,
     top: "0px",
     right: "0px",
     left: "0px",
@@ -17,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
   left: {
     float: "left",
     fontSize: "1.5rem",
-    paddingLeft: "0.5rem",
+    paddingLeft: "1rem",
     cursor: "pointer",
   },
   right: {
     float: "right",
-    paddingRight: "0.5rem",
+    paddingRight: "1rem",
   },
   icon: {
     fontSize: "2rem",

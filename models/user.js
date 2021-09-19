@@ -10,9 +10,9 @@ const userSchema = new Schema(
     salt: String,
     hash: String,
     learned: String,
-    reference: String,
-    referenceArtist: String,
+    hasArt: Boolean,
     isAdmin: Boolean,
+    alive: Boolean,
   },
   { timestamps: true }
 );
