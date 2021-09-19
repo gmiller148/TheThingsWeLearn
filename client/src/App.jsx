@@ -12,6 +12,7 @@ import MainPage from "./MainPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import PersonalPage from "./PersonalPage";
+import MissionPage from "./MissionPage";
 class App extends Component {
   render() {
     return (
@@ -20,6 +21,7 @@ class App extends Component {
           <Route exact path="/" component={MainPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/mission" component={MissionPage} />
           <Route exact path="/me" component={PersonalPage} />
           <Route exact path="/404" component={<p>Page not found</p>} />
           <Redirect to="/404" />

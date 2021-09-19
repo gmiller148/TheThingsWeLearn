@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { useHistory } from "react-router-dom";
+import PersonalPage from "./PersonalPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,14 +55,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const categories = ["Paintings", "Poetry", "Essays", "Music", "Photography"];
+const categories = ["paintings", "poetry", "essays", "music", "photography"];
 const centuries = [
-  "16th Century",
-  "17th Century",
-  "18th Century",
-  "19th Century",
-  "20th Century",
-  "21th Century",
+  "16th century",
+  "17th century",
+  "18th century",
+  "19th century",
+  "20th century",
+  "21th century",
 ];
 
 const Sidebar = (props) => {
@@ -71,6 +72,27 @@ const Sidebar = (props) => {
   const handleItemClick = (location) => {
     history.push(`/${location}`);
   };
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    fetch("/api/loggedIn")
+      .then((res) => {
+        setLoggedIn(res.status === 200);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+
+  const handleLogout = () => {
+    fetch("/api/logout")
+      .then((res) => {
+        history.push(`/`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className={classes.root}>
       <CloseIcon
@@ -108,15 +130,24 @@ const Sidebar = (props) => {
           key={"mission"}
           onClick={() => handleItemClick("mission")}
         >
-          Mission
+          mission
         </div>
         <div
           className={classes.menuHeader}
           key={"login"}
           onClick={() => handleItemClick("login")}
         >
-          You
+          you
         </div>
+        {loggedIn && (
+          <div
+            className={classes.menuHeader}
+            key={"logout"}
+            onClick={() => handleLogout()}
+          >
+            logout
+          </div>
+        )}
       </div>
     </div>
   );
