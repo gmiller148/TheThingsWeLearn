@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Crimson Text",
     fontSize: "2rem",
     color: "black",
+    cursor: "pointer",
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
   year: {
     fontFamily: "Roboto Mono",
@@ -102,53 +107,97 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BioCard = (props) => {
-  const [viewingArt, setViewingArt] = useState(false);
   const { bio } = props;
+  const [viewingArt, setViewingArt] = useState(bio.learned === "");
+  const [art, setArt] = useState(null);
   const classes = useStyles();
+  useEffect(() => {
+    fetch(`/api/image/${bio._id}`)
+      .then((image) => {
+        return image.status !== 200 ? null : image.json();
+      })
+      .then((imageObj) => {
+        setArt(imageObj);
+      });
+  });
 
-  const tabs = bio.hasArt ? (
-    <>
-      <span
-        onClick={() => setViewingArt(false)}
-        className={`${!viewingArt ? classes.active : classes.inactive} ${
-          classes.option
-        }`}
-      >
-        what i've learned
-      </span>
-      <span className={classes.inactive}>{"  /  "}</span>
-      <span
-        onClick={() => setViewingArt(true)}
-        className={`${viewingArt ? classes.active : classes.inactive} ${
-          classes.option
-        }`}
-      >
-        art that speaks to me
-      </span>
-    </>
-  ) : (
+  const artTab = (
+    <span
+      onClick={() => setViewingArt(true)}
+      className={`${viewingArt ? classes.active : classes.inactive} ${
+        classes.option
+      }`}
+    >
+      art that speaks to me
+    </span>
+  );
+  const meTab = (
     <span
       onClick={() => setViewingArt(false)}
-      className={`${classes.active} ${classes.option}`}
+      className={`${!viewingArt ? classes.active : classes.inactive} ${
+        classes.option
+      }`}
     >
       what i've learned
     </span>
   );
+  let tabs;
+  if (bio.learned !== "" && bio.hasArt) {
+    tabs = (
+      <>
+        {meTab}
+        {"  /  "}
+        {artTab}
+      </>
+    );
+  } else if (bio.learned !== "" && !bio.hasArt) {
+    tabs = meTab;
+  } else {
+    tabs = artTab;
+  }
+  const history = useHistory();
 
   return (
     <div className={classes.root}>
       <main className={classes.main}>
-        <div className={classes.name}>{bio.name}</div>
+        <div
+          className={classes.name}
+          onClick={() => history.push(`/person/${bio._id}`)}
+        >
+          {bio.name}
+        </div>
         <div className={classes.year}>
           {bio.birthYear}-{bio.deathYear}
         </div>
         <div className={classes.learnGrid}>
           <div className={classes.spans}>{tabs}</div>
           <div className={classes.content}>
-            {bio.learned.length < 1000 ? (
-              <NewlineText text={bio.learned} />
+            {viewingArt ? (
+              art ? (
+                <>
+                  <img
+                    alt="personalImage"
+                    className={classes.image}
+                    src={`data:${
+                      art.imageData.contentType
+                    };base64,${art.imageData.data.toString("base64")}`}
+                  ></img>
+                  <div className={classes.artist}>
+                    {" "}
+                    - {art.artist || "unknown"}
+                  </div>
+                </>
+              ) : (
+                <></>
+              )
             ) : (
-              <LongText text={bio.learned} />
+              <>
+                {bio.learned.length < 500 ? (
+                  <NewlineText text={bio.learned} />
+                ) : (
+                  <LongText text={bio.learned} length={500} />
+                )}
+              </>
             )}
           </div>
         </div>
@@ -158,7 +207,7 @@ const BioCard = (props) => {
 };
 
 const LongText = (props) => {
-  const { text } = props;
+  const { text, length } = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   return open ? (
@@ -170,7 +219,7 @@ const LongText = (props) => {
     </>
   ) : (
     <>
-      <NewlineText text={text.slice(0, 1000) + "..."} />
+      <NewlineText text={text.slice(0, length) + "..."} />
       <div className={classes.readMore} onClick={() => setOpen(true)}>
         read more
       </div>

@@ -48,7 +48,7 @@ const MissionPage = () => {
       <Navbar />
       <main className={classes.main}>
         <div className={classes.name}>Our Mission</div>
-        <div className={classes.text}>
+        <p className={classes.text}>
           The mission of this website is to build a home for lived experiences.
           The goal is to capture a glimpse of the wisdom and meaning that imbued
           an individual’s life on earth. We live in unprecedented times. There
@@ -64,7 +64,15 @@ const MissionPage = () => {
           Fundamentally, the human condition project is an art piece which seeks
           to include as many artists as possible in expressing “what did you
           learn in this life.”
-        </div>
+        </p>
+        <div className={classes.name}>Our Method</div>
+        <p className={classes.text}>
+          We hope to give as many people as possible the opportunity to share
+          their legacy. As this page looks back on those before us, we only show
+          pieces of people who have passed. If someone you love has passed and
+          wishes to have their experiences expressed, please share with us their
+          knowledge.
+        </p>
       </main>
     </div>
   );

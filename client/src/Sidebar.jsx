@@ -101,7 +101,12 @@ const Sidebar = (props) => {
       />
       <br />
       <div className={classes.menu}>
-        <div className={classes.menuHeader}>Gallery</div>
+        <div
+          className={classes.menuHeader}
+          onClick={() => handleItemClick("gallery")}
+        >
+          Gallery
+        </div>
         {categories.map((category) => {
           return (
             <div

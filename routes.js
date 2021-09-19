@@ -52,8 +52,7 @@ router.post(
         salt: salt,
         hash: hash,
         learned: "",
-        reference: "",
-        referenceArtist: "",
+        hasArt: false,
         isAdmin: false,
       });
       await newUser.save();
@@ -76,9 +75,8 @@ router.post(
       birthYear: birthYear,
       deathYear: deathYear,
       learned: learned,
-      reference: null,
-      referenceArtist: null,
       alive: false,
+      hasArt: false,
     });
     await user.save();
     return res.sendStatus(201);
@@ -90,6 +88,13 @@ router.get(
   ash(async (req, res) => {
     const bios = await User.find({ alive: false }).lean();
     console.log(bios);
+    // https://medium.com/@nitinpatel_20236/how-to-shuffle-correctly-shuffle-an-array-in-javascript-15ea3f84bfb
+    for (let i = bios.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * i);
+      const temp = bios[i];
+      bios[i] = bios[j];
+      bios[j] = temp;
+    }
     return res.json({ bios });
   })
 );
@@ -112,11 +117,25 @@ router.get(
       name: user.name,
       email: user.email,
       learned: user.learned,
-      reference: "",
-      referenceArtist: "",
+      hasArt: user.hasArt,
       birthYear: user.birthYear,
       deathYear: user.deathYear,
       _id: user._id,
+    });
+  })
+);
+
+router.get(
+  "/person/:personId",
+  ash(async (req, res) => {
+    const { personId } = req.params;
+    const person = await User.findById(personId);
+    return res.json({
+      name: person.name,
+      learned: person.learned,
+      hasArt: person.hasArt,
+      birthYear: person.birthYear,
+      deathYear: person.deathYear,
     });
   })
 );

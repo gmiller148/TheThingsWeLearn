@@ -113,6 +113,7 @@ const PersonalPage = () => {
       .then((imageObj) => {
         console.log({ imageObj });
         setImageData(imageObj);
+        setArtEditing(imageObj === null);
         setLoading(false);
       })
       .catch((error) => {
@@ -122,7 +123,7 @@ const PersonalPage = () => {
         }, 500);
         setLoading(false);
       });
-  }, [artEditing]);
+  }, []);
 
   return (
     <div className={classes.root}>
