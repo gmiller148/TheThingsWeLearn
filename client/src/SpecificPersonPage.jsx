@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
   learned: {
     fontSize: "1rem",
+
     color: "#878787",
   },
   active: {
@@ -173,25 +174,9 @@ const SpecificPersonPage = (props) => {
             <div className={classes.spans}>{tabs}</div>
             <div className={classes.content}>
               {viewingArt ? (
-                art ? (
-                  <>
-                    <img
-                      alt="personalImage"
-                      className={classes.image}
-                      src={`data:${
-                        art.imageData.contentType
-                      };base64,${art.imageData.data.toString("base64")}`}
-                    ></img>
-                    <div className={classes.artist}>
-                      {" "}
-                      - {art.artist || "unknown"}
-                    </div>
-                  </>
-                ) : (
-                  <></>
-                )
+                <Art art={art} />
               ) : (
-                <NewlineText text={myInfo.learned} />
+                <MyLearning learned={myInfo.learned} />
               )}
             </div>
           </div>
@@ -203,25 +188,19 @@ const SpecificPersonPage = (props) => {
 
 const Art = (props) => {
   const classes = useStyles();
-  const { me, imageData, editing, setEditing } = props;
+  const { me, art } = props;
   return (
     <div>
-      {imageData ? (
+      {art ? (
         <>
           <img
             alt="personalImage"
             className={classes.image}
             src={`data:${
-              imageData.imageData.contentType
-            };base64,${imageData.imageData.data.toString("base64")}`}
+              art.imageData.contentType
+            };base64,${art.imageData.data.toString("base64")}`}
           ></img>
-          <div className={classes.artist}>
-            {" "}
-            - {imageData.artist || "unknown"}
-          </div>
-          <div className={classes.editButton} onClick={() => setEditing(true)}>
-            edit
-          </div>
+          <div className={classes.artist}> - {art.artist || "unknown"}</div>
         </>
       ) : (
         <></>

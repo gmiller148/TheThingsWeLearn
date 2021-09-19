@@ -105,9 +105,9 @@ const Sidebar = (props) => {
           className={classes.menuHeader}
           onClick={() => handleItemClick("gallery")}
         >
-          Gallery
+          gallery
         </div>
-        {categories.map((category) => {
+        {/* {categories.map((category) => {
           return (
             <div
               className={classes.menuItem}
@@ -118,7 +118,7 @@ const Sidebar = (props) => {
             </div>
           );
         })}
-        <div className={classes.menuHeader}>Time</div>
+        <div className={classes.menuHeader}>time</div>
         {centuries.map((century) => {
           return (
             <div
@@ -129,7 +129,7 @@ const Sidebar = (props) => {
               {century}
             </div>
           );
-        })}
+        })} */}
         <div
           className={classes.menuHeader}
           key={"mission"}
