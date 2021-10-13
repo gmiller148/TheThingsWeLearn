@@ -29,5 +29,7 @@ wishes to have their experiences expressed, please share with us their
 knowledge.
 
 Inspired by Eli Kramer.
-Implemented and maintained by Grant Miller.
-Initially submitted to the MIT 24 hour Hackthon in 2021.
+
+Implemented and maintained by [Grant Miller](https://www.linkedin.com/in/grant-miller-mit/).
+
+Initially submitted to the MIT 24-hour [Hackthon](https://hackmit.org/) in 2021.
