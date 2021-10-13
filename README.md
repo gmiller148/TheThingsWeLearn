@@ -1,6 +1,6 @@
 # TheThingsWeLearn
 
-This website can be found here: (The Things We Learn)[https://www.thethingwelearn.org]
+This website can be found here: [The Things We Learn](https://www.thethingwelearn.org)
 
 ## Mission
 
